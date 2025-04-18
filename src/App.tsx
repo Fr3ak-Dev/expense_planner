@@ -1,10 +1,10 @@
-import { BudgetForm } from "./components/BudgetForm"
+import BudgetForm from "./components/BudgetForm"
 
 function App() {
 
   return (
     <>
-      <header className="bg-blue-600 py-8 max-h-72">
+      <header className="bg-green-600 py-8 max-h-72">
         <h1 className="uppercase text-center font-black text-4xl text-white">
           Expense Planner
         </h1>
