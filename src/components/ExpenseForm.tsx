@@ -1,13 +1,19 @@
+import { useState } from "react";
+import type { DraftExpense } from "../types";
 import { categories } from "../data/categories";
-import DatePicker from 'react-date-picker';
+import  DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
 export default function ExpenseForm() {
+
+    const [expense, setExpense] = useState<DraftExpense>({
+        amount: 0,
+        expenseName: '',
+        category: '',
+        date: new Date()
+    })
+
     return (
         <form className="space-y-5">
             <legend className="uppercase text-ceter text-2xl font-black border-b-4 border-green-500 py-2">
@@ -23,6 +29,7 @@ export default function ExpenseForm() {
                     placeholder="Enter the name of the expense"
                     className="bg-slate-100 p-2 outline-emerald-500"
                     name="expenseName"
+                    value={expense.expenseName}
                 />
             </div>
             <div className="flex flex-col gap-2">
@@ -35,6 +42,7 @@ export default function ExpenseForm() {
                     placeholder="Enter the amount of the expense: Ej. 300"
                     className="bg-slate-100 p-2 outline-emerald-500"
                     name="amount"
+                    value={expense.amount}
                 />
             </div>
             <div className="flex flex-col gap-2">
@@ -45,6 +53,7 @@ export default function ExpenseForm() {
                     id="category"
                     className="bg-slate-100 p-2 outline-emerald-500 cursor-pointer"
                     name="category"
+                    value={expense.category}
                 >
                     <option value="">-- Select --</option>
                     {categories.map(category => (
@@ -58,6 +67,7 @@ export default function ExpenseForm() {
                 </label>
                 <DatePicker 
                     className="bg-slate-100 p-2 border-0"
+                    value={expense.date}
                 />
             </div>
             <input 
