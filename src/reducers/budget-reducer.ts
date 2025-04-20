@@ -5,7 +5,7 @@ export type BudgetActions =
     { type: 'add_budget', payload: {budget: number}} |
     { type: 'show-modal' } |
     { type: 'close-modal' } |
-    { type: 'add_expense', payload: {expense: DraftExpense}}
+    { type: 'add-expense', payload: {expense: DraftExpense}}
 
 export type BudgetState = {
     budget: number
@@ -51,13 +51,14 @@ export const budgetReducer = (
         }
     }
 
-    if (action.type === 'add_expense') {
+    if (action.type === 'add-expense') {
 
         const expense = createExpense(action.payload.expense)
 
         return {
             ...state,
-            expenses: [...state.expenses, expense]
+            expenses: [...state.expenses, expense],
+            modal: false
         }
     }
 

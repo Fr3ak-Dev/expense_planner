@@ -36,12 +36,24 @@ export default function ExpenseForm() {
     }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+
         e.preventDefault()
+
         if (Object.values(expense).includes('')) {
             setError('All fields are required')
             return
         }
-        dispatch({ type: 'add_expense', payload: { expense } })
+
+        // add a new expense
+        dispatch({ type: 'add-expense', payload: { expense } })
+
+        // reset the state
+        setExpense({
+            amount: 0,
+            expenseName: '',
+            category: '',
+            date: new Date()
+        })
     }
 
     return (
