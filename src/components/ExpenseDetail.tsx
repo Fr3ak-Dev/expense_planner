@@ -11,6 +11,7 @@ import { Expense } from "../types"
 import AmountDisplay from "./AmountDisplay"
 import { categories } from "../data/categories"
 import "react-swipeable-list/dist/styles.css"
+import { useBudget } from "../hooks/useBudget"
 
 type ExpenseDetailProps = {
     expense: Expense
@@ -18,12 +19,14 @@ type ExpenseDetailProps = {
 
 export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
 
+    const { dispatch } = useBudget()
+
     const categoryInfo = useMemo(() => categories.filter(cat => cat.id === expense.category)[0], [expense])
     { console.log(categoryInfo.icon) }
 
     const leadingActions = () => (
         <LeadingActions>
-            <SwipeAction onClick={() => {}}>
+            <SwipeAction onClick={() => { }}>
                 Share
             </SwipeAction>
         </LeadingActions>
@@ -31,7 +34,9 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
 
     const trailingActions = () => (
         <TrailingActions>
-            <SwipeAction onClick={() => {}} destructive={true}>
+            <SwipeAction
+                onClick={() => dispatch({ type: 'remove-expense', payload: { id: expense.id } })}
+                destructive={true}>
                 Delete
             </SwipeAction>
         </TrailingActions>
@@ -40,7 +45,7 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
     return (
         <SwipeableList>
             <SwipeableListItem
-                maxSwipe={30}   // This is the max distance the user can swipe the item
+                maxSwipe={1}   // This is the max distance the user can swipe the item
                 leadingActions={leadingActions()}   // This is the left side actions
                 trailingActions={trailingActions()} // This is the right side actions
             >
