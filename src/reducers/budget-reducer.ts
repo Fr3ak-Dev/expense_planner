@@ -2,12 +2,13 @@ import { v4 as uuidv4 } from "uuid"
 import { DraftExpense, Expense } from "../types"
 
 export type BudgetActions =
-    { type: 'add_budget', payload: {budget: number}} |
+    { type: 'add_budget', payload: { budget: number } } |
     { type: 'show-modal' } |
     { type: 'close-modal' } |
-    { type: 'add-expense', payload: {expense: DraftExpense}} |
-    { type: 'remove-expense', payload: {id: Expense['id']}} |
-    { type: 'get-expense-by-id', payload: {id: Expense['id']}}
+    { type: 'add-expense', payload: { expense: DraftExpense } } |
+    { type: 'remove-expense', payload: { id: Expense['id'] } } |
+    { type: 'get-expense-by-id', payload: { id: Expense['id'] } } |
+    { type: 'update-expense', payload: { expense: Expense } }
 
 export type BudgetState = {
     budget: number
@@ -16,14 +17,14 @@ export type BudgetState = {
     editingId: Expense['id']
 }
 
-const createExpense = (draftExpense: DraftExpense) : Expense => {
+const createExpense = (draftExpense: DraftExpense): Expense => {
     return {
         ...draftExpense,
         id: uuidv4()
     }
 }
 
-export const initialState : BudgetState = {
+export const initialState: BudgetState = {
     budget: 0,
     modal: false,
     expenses: [],
@@ -51,7 +52,8 @@ export const budgetReducer = (
     if (action.type === 'close-modal') {
         return {
             ...state,
-            modal: false
+            modal: false,
+            editingId: ''
         }
     }
 
@@ -78,6 +80,14 @@ export const budgetReducer = (
             ...state,
             editingId: action.payload.id,
             modal: true
+        }
+    }
+
+    if (action.type === 'update-expense') {
+        return {
+            ...state,
+            expenses: state.expenses.map(expense => expense.id === action.payload.expense.id ? action.payload.expense : expense),
+            modal: false
         }
     }
 

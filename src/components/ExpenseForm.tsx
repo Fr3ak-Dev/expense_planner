@@ -51,8 +51,12 @@ export default function ExpenseForm() {
             return
         }
 
-        // add a new expense
-        dispatch({ type: 'add-expense', payload: { expense } })
+        // add or update the expense
+        if (state.editingId) {
+            dispatch({ type: 'update-expense', payload: { expense: {id: state.editingId, ...expense} } })
+        } else {
+            dispatch({ type: 'add-expense', payload: { expense } })
+        }
 
         // reset the state
         setExpense({
