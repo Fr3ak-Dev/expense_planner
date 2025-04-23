@@ -9,7 +9,7 @@ export default function ExpenseList() {
     const isEmpty = useMemo(() => state.expenses.length === 0, [state.expenses])
 
     return (
-        <div className="mt-10">
+        <div className="mt-10 bg-white shadow-lg p-10">
             {isEmpty ? <p className="text-gray-600 text-2xl font-bold">There are no Expenses</p> : (
                 <>
                     <p className="text-gray-600 text-2xl font-bold my-5">Expense List</p>

@@ -49,7 +49,7 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
                 leadingActions={leadingActions()}   // This is the left side actions
                 trailingActions={trailingActions()} // This is the right side actions
             >
-                <div className="bg-white shadow-lg p-10 w-full border-p border-gray-200 flex gap-5 items-center">
+                <div className="bg-white shadow-lg p-5 w-full border-p border-gray-200 flex gap-5 items-center">
                     <div>
                         <img src={`/icon_${categoryInfo.icon}.svg`} alt="icon" className="w-20" />
                     </div>
